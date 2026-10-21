@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Submission Showcase</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Highlight.js for Python syntax highlighting (Dark Theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <!-- Initialize syntax highlighting -->
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        /* Ensuring the code block looks clean and has rounded corners */
+        pre code.hljs {
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+    <main class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+        
+        <!-- Header Section -->
+        <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">Titanic Survival Prediction</h1>
+                <p class="text-blue-100 text-lg">Random Forest Classifier Model</p>
+            </div>
+            
+            <!-- Prominent Score Display -->
+            <div class="mt-6 sm:mt-0 bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30 text-center min-w-[160px]">
+                <p class="text-blue-100 text-sm font-semibold uppercase tracking-wider mb-1">Final Score</p>
+                <p class="text-4xl font-extrabold tracking-tight">0.77511</p>
+            </div>
+        </header>
+
+        <!-- Code Section -->
+        <section class="p-8">
+            <div class="mb-6 flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    Submission Script
+                </h2>
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm font-medium rounded-full">code.py</span>
+            </div>
+
+            <!-- Formatted Python Code Block -->
+            <div class="relative group">
+                <pre><code class="language-python">import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+
+# Load train data
+train_data = pd.read_csv('train.csv')
+
+# Load test data
+test_data = pd.read_csv('test.csv')
+
+# Build model
+
+# Target column for model
+y = train_data['Survived']
+
+features = ["Pclass", "Sex", "SibSp", "Parch"]
+
+# Load variables with get_dummies to get numeric values
+X = pd.get_dummies(train_data[features])
+#Load test variables the same way
+X_test = pd.get_dummies(test_data[features])
+
+# Load model
+model = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=1)
+model.fit(X,y)
+predictions = model.predict(X_test)
+
+# Show results
+output = pd.DataFrame({'PassengerId': test_data.PassengerId, 'Survived':predictions})
+output.to_csv('submission.csv', index=False)
+print("Submission saved")</code></pre>
+            </div>
+            
+            <div class="mt-6 text-sm text-gray-500 text-center">
+                <p>Model trained using scikit-learn and pandas.</p>
+            </div>
+        </section>
+        
+    </main>
+
+</body>
+</html>
